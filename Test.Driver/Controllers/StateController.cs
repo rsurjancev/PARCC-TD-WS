@@ -29,40 +29,23 @@ namespace Test.Driver.Controllers
 		[AccessControlAllowOrigin]
 		public async Task<HttpResponseMessage> Get(int id)
         {
-            return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "GET /state/id is not implemented.", new HttpResponseException(HttpStatusCode.NotImplemented));
+            return Request.CreateResponse<string>(HttpStatusCode.NotFound, "", new JsonMediaTypeFormatter());
         }
 
 		// POST: api/State
-		[AccessControlAllowOrigin]
 		public async Task<HttpResponseMessage> Post([FromBody]JObject state)
         {
-			/*
-			UTF8Encoding encoding = new UTF8Encoding();
-			string filename = HostingEnvironment.MapPath("~/StateRepository/state.json");
-			byte[] content = encoding.GetBytes(state.ToString(Formatting.None));
-
-			try
-			{
-				using (FileStream stream = File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None))
-				{
-					await stream.WriteAsync(content, 0, (int)content.Length);
-				}
-			}
-			catch (Exception e)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "File.Open() probably failed, if not will not see this: " + e.ToString(), new HttpResponseException(HttpStatusCode.InternalServerError));
-			}
-			*/
-			return Request.CreateResponse<string>(HttpStatusCode.OK, "Da ti ne bi jebo mamu u salamu!", new JsonMediaTypeFormatter());
+			return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "POST /state is not implemented.", new HttpResponseException(HttpStatusCode.NotImplemented));
 		}
 
 		// PUT: api/State/5
-		public void Put(int id, [FromBody]string value)
+		public async Task<HttpResponseMessage> Put(int id, [FromBody]string value)
         {
-        }
+			return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "PUT /state/{id} is not implemented.", new HttpResponseException(HttpStatusCode.NotImplemented));
+		}
 
-        // DELETE: api/State/5
-        public void Delete(int id)
+		// DELETE: api/State/5
+		public void Delete(int id)
         {
         }
     }

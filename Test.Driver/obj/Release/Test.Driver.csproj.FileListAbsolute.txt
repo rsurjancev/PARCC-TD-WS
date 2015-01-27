@@ -47,4 +47,3 @@ C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Te
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Release\ApplicationInsights.config
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Release\Test.Driver.dll
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Release\Test.Driver.pdb
-C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Release\Test.Driver.csprojResolveAssemblyReference.cache

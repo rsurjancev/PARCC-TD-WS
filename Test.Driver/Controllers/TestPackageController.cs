@@ -19,22 +19,28 @@ namespace Test.Driver.Controllers
 {
     public class TestPackageController : ApiController
     {
-        // GET: api/TestPackage
-        public async Task<HttpResponseMessage> Get()
+		// GET: api/TestPackage
+		[AccessControlAllowOrigin]
+		public async Task<HttpResponseMessage> Get()
         {
-			UTF8Encoding encoding = new UTF8Encoding();
-			string filename = HostingEnvironment.MapPath("~/TestPackages/mysecondtp.json");
-			byte[] result;
-
-			using (FileStream stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+			try
 			{
-				result = new byte[stream.Length];
-				await stream.ReadAsync(result, 0, (int)stream.Length);
-			}
+				List<string> testPackages = new List<string>();
+				UTF8Encoding encoding = new UTF8Encoding();
+				string testPackageRootFolder = HostingEnvironment.MapPath("~/TestPackages");
+				var testPackageFolders = Directory.GetDirectories(testPackageRootFolder);
+				foreach (var testPackageFolder in testPackageFolders)
+				{
+					DirectoryInfo di = new DirectoryInfo(testPackageFolder);
+					testPackages.Add(di.Name);
+				}
 
-			string jsonResult = encoding.GetString(result);
-			var jsonObject = JObject.Parse(jsonResult);
-			return Request.CreateResponse<JObject>(HttpStatusCode.OK, jsonObject, new JsonMediaTypeFormatter());
+				return Request.CreateResponse<List<string>>(HttpStatusCode.OK, testPackages, new JsonMediaTypeFormatter());
+			}
+			catch (Exception e)
+			{
+				return Request.CreateResponse<string>(HttpStatusCode.InternalServerError, e.ToString(), new JsonMediaTypeFormatter());
+			}
 		}
 
 		// GET: api/TestPackage/5
@@ -42,7 +48,7 @@ namespace Test.Driver.Controllers
 		public async Task<HttpResponseMessage> Get(int id)
         {
 			UTF8Encoding encoding = new UTF8Encoding();
-			string filename = HostingEnvironment.MapPath("~/TestPackages/mysecondtp.json");
+			string filename = HostingEnvironment.MapPath("~/TestPackages/" + id.ToString() + "/" + id.ToString() + ".json");
 			byte[] result;
 
 			try

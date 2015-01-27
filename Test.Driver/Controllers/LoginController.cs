@@ -21,14 +21,14 @@ namespace Test.Driver.Controllers
 			{
 				getSettings = new GetSettings
 				{
-					baseUrl = "http://tdws.surjancev.net/hosting/tdws/api/"
+					baseUrl = "http://tdws.parcc.com/api/"				// "http://tdws.surjancev.net/hosting/tdws/api/"
 				},
 				postSettings = new PostSettings
 				{
-					state = "http://tdws.surjancev.net/hosting/tdws/api/state/",
-					upload = "http://tdws.surjancev.net/hosting/tdws/api/upload/",
-					pause = "http://tdws.surjancev.net/hosting/tdws/api/pause/",
-					complete = "http://tdws.surjancev.net/hosting/tdws/api/complete/"
+					state = "http://tdws.parcc.com/api/state/",		// "http://tdws.surjancev.net/hosting/tdws/api/state/"
+					upload = "http://tdws.parcc.com/api/upload/",		// "http://tdws.surjancev.net/hosting/tdws/api/upload/"
+					pause = "http://tdws.parcc.com/api/pause/",		// "http://tdws.surjancev.net/hosting/tdws/api/pause/"
+					complete = "http://tdws.parcc.com/api/complete/"	// "http://tdws.surjancev.net/hosting/tdws/api/complete/"
 				}
 			},
 			testSettings = new TestSettings

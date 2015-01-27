@@ -44,7 +44,7 @@ C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Te
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\bin\System.Web.WebPages.Deployment.xml
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\bin\System.Web.WebPages.Razor.xml
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\bin\Antlr3.Runtime.pdb
-C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Debug\Test.Driver.csprojResolveAssemblyReference.cache
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Debug\ApplicationInsights.config
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Debug\Test.Driver.dll
 C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Debug\Test.Driver.pdb
+C:\Users\radovan.surjancev\Documents\Visual Studio 2015\Projects\Shure.Server\Test.Driver\obj\Debug\Test.Driver.csprojResolveAssemblyReference.cache
