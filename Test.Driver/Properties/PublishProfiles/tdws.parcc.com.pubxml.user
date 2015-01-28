@@ -82,10 +82,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/21/2015 15:36:22</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>01/26/2015 15:10:19</publishTime>
+      <publishTime>01/27/2015 15:55:49</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>01/26/2015 15:10:19</publishTime>
+      <publishTime>01/27/2015 15:55:49</publishTime>
     </File>
     <File Include="bin/Microsoft.ApplicationInsights.dll">
       <publishTime>01/21/2015 15:36:09</publishTime>
@@ -145,7 +145,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/21/2015 15:35:49</publishTime>
     </File>
     <File Include="bin/Test.Driver.dll">
-      <publishTime>01/26/2015 15:10:09</publishTime>
+      <publishTime>01/27/2015 15:55:38</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/21/2015 15:35:54</publishTime>
@@ -178,7 +178,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/21/2015 15:36:16</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>01/26/2015 15:10:10</publishTime>
+      <publishTime>01/27/2015 15:55:40</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/21/2015 15:35:33</publishTime>
@@ -223,7 +223,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/21/2015 15:35:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/26/2015 14:57:11</publishTime>
+      <publishTime>01/27/2015 15:55:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

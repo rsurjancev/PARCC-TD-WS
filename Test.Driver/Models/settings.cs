@@ -8,6 +8,16 @@ namespace Test.Driver.Models
 {
 	public class Settings
 	{
+		public Settings() { }
+		public Settings(Settings rval)
+		{
+			hostSettings = rval.hostSettings;
+			testSettings = rval.testSettings;
+			candidateSettings = rval.candidateSettings;
+			debugSettings = rval.debugSettings;
+			configurationSettings = rval.configurationSettings;
+		}
+
 		[JsonProperty(PropertyName = "host")]
 		public HostSettings hostSettings { get; set; }
 

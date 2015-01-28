@@ -29,7 +29,25 @@ namespace Test.Driver.Controllers
 		[AccessControlAllowOrigin]
 		public async Task<HttpResponseMessage> Get(int id)
         {
-            return Request.CreateResponse<string>(HttpStatusCode.NotFound, "", new JsonMediaTypeFormatter());
+			UTF8Encoding encoding = new UTF8Encoding();
+			string filename = HostingEnvironment.MapPath("~/TestPackages/" + id.ToString() + "/state/state.json");
+			byte[] content;
+
+			try
+			{
+				using (FileStream stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+				{
+					content = new byte[stream.Length];
+					await stream.ReadAsync(content, 0, (int)stream.Length);
+				}
+			}
+			catch (Exception e)
+			{
+				return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "File.Open() probably failed, if not will not see this: " + e.ToString(), new HttpResponseException(HttpStatusCode.InternalServerError));
+			}
+			string jsonResult = encoding.GetString(content);
+			var jsonObject = JObject.Parse(jsonResult);
+			return Request.CreateResponse<JObject>(HttpStatusCode.OK, jsonObject, new JsonMediaTypeFormatter());
         }
 
 		// POST: api/State

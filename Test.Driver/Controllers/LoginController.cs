@@ -15,20 +15,20 @@ namespace Test.Driver.Controllers
 	// [RequireHttps]
 	public class LoginController : ApiController
     {
-		private static Settings settings = new Settings
+		private static Settings settingsTemplate = new Settings
 		{
 			hostSettings = new HostSettings
 			{
 				getSettings = new GetSettings
 				{
-					baseUrl = "http://tdws.parcc.com/api/"				// "http://tdws.surjancev.net/hosting/tdws/api/"
+					baseUrl = "http://tdws.parcc.com/api/"
 				},
 				postSettings = new PostSettings
 				{
-					state = "http://tdws.parcc.com/api/state/",		// "http://tdws.surjancev.net/hosting/tdws/api/state/"
-					upload = "http://tdws.parcc.com/api/upload/",		// "http://tdws.surjancev.net/hosting/tdws/api/upload/"
-					pause = "http://tdws.parcc.com/api/pause/",		// "http://tdws.surjancev.net/hosting/tdws/api/pause/"
-					complete = "http://tdws.parcc.com/api/complete/"	// "http://tdws.surjancev.net/hosting/tdws/api/complete/"
+					state = "http://tdws.parcc.com/api/state/",
+					upload = "http://tdws.parcc.com/api/upload/",
+					pause = "http://tdws.parcc.com/api/pause/",
+					complete = "http://tdws.parcc.com/api/complete/"
 				}
 			},
 			testSettings = new TestSettings
@@ -97,24 +97,58 @@ namespace Test.Driver.Controllers
         // GET: api/Login
         public async Task<HttpResponseMessage> Get()
         {
-			return Request.CreateResponse<Settings>(HttpStatusCode.OK, LoginController.settings, new JsonMediaTypeFormatter());
+			return Request.CreateResponse<Settings>(HttpStatusCode.OK, LoginController.settingsTemplate, new JsonMediaTypeFormatter());
         }
 
         // GET: api/Login/5
         public async Task<HttpResponseMessage> Get(int id)
         {
-			return Request.CreateResponse<Settings>(LoginController.settings);
+			return Request.CreateResponse<Settings>(LoginController.settingsTemplate);
 		}
 
 		// POST: api/Login
 		[AccessControlAllowOrigin]
 		public async Task<HttpResponseMessage> Post([FromBody]Credentials credentials)
         {
-			if (String.Compare(credentials.testKey, LoginController.settings.testSettings.key, true) == 0 && credentials.dob == LoginController.settings.candidateSettings.dob)
+			// Rules: 
+			//    testkey{n} where n = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 - real test keys, the date for those must be 01/01/2000
+			//    practice - date is not important
+			//    surekey{n} where n = 11, 121 - dob must be 01/11/1961 - goes against surjancev.net server
+			string testKey = credentials.testKey.ToLower();
+			if (testKey.StartsWith("testkey"))
 			{
-				return Request.CreateResponse<Settings>(HttpStatusCode.OK, LoginController.settings, new JsonMediaTypeFormatter());
+				int registrationId = Convert.ToInt32(testKey.Substring("testkey".Length));
+				if (registrationId >= 1 && registrationId <= 10)
+                {
+					Settings response = new Settings(LoginController.settingsTemplate);
+					response.testSettings.id = registrationId.ToString();
+					response.testSettings.key = credentials.testKey;
+					return Request.CreateResponse<Settings>(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());
+				}
 			}
-			return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Invalid credentials, go and ask Radovan to give you access!", new HttpResponseException(HttpStatusCode.Unauthorized));
+			else if (testKey.StartsWith("practice"))
+			{
+				Settings response = new Settings(LoginController.settingsTemplate);
+				response.configurationSettings.updateSettings.ping = false;
+				return Request.CreateResponse<Settings>(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());
+			}
+			else if (testKey.StartsWith("surekey"))
+			{
+				int registrationId = Convert.ToInt32(testKey.Substring("surekey".Length));
+				if (registrationId == 11 || registrationId == 121)
+				{
+					Settings response = new Settings(LoginController.settingsTemplate);
+					response.testSettings.id = registrationId.ToString();
+					response.testSettings.key = credentials.testKey;
+					response.hostSettings.getSettings.baseUrl = "http://tdws.surjancev.net/hosting/tdws/api/";
+					response.hostSettings.postSettings.state = "http://tdws.surjancev.net/hosting/tdws/api/state/";
+					response.hostSettings.postSettings.upload = "http://tdws.surjancev.net/hosting/tdws/api/upload/";
+					response.hostSettings.postSettings.pause = "http://tdws.surjancev.net/hosting/tdws/api/pause/";
+					response.hostSettings.postSettings.complete = "http://tdws.surjancev.net/hosting/tdws/api/complete/";
+					return Request.CreateResponse<Settings>(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());
+				}
+			}
+			return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Invalid credentials, go ask Radovan to give you access!", new HttpResponseException(HttpStatusCode.Unauthorized));
 		}
 
         // PUT: api/Login/5
