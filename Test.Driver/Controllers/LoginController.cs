@@ -57,7 +57,12 @@ namespace Test.Driver.Controllers
 					name = "Stone Elementary",
 					city = "Addison",
 					district = "4"
-				}
+				},
+                stateSettings = new StateSettings
+                {
+                    name = "Illinois",
+                    abbreviation = "IL"
+                }
 			},
 			debugSettings = new DebugSettings
 			{
@@ -110,11 +115,16 @@ namespace Test.Driver.Controllers
 		[AccessControlAllowOrigin]
 		public async Task<HttpResponseMessage> Post([FromBody]Credentials credentials)
         {
-			// Rules: 
-			//    testkey{n} where n = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 - real test keys, the date for those must be 01/01/2000
-			//    practice - date is not important
-			//    surekey{n} where n = 11, 121 - dob must be 01/11/1961 - goes against surjancev.net server
-			string testKey = credentials.testKey.ToLower();
+            // Rules: 
+            //    testkey{n} where n = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 - real test keys, the date for those must be 01/01/2000 (remeber, test key is now mandatory 10 chracters, so those are now TESTKEY001 thru TESTKEY010
+            //    practice - date is not important - must be in format PRACTxxxxx
+            //    surekey{n} where n = 11, 121 - dob must be 01/11/1961 - goes against surjancev.net server - format is SUREKEY011 or SUREKEY121
+            if (credentials == null || String.IsNullOrEmpty(credentials.testKey))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request format!", new HttpResponseException(HttpStatusCode.BadRequest));
+            }
+
+            string testKey = credentials.testKey.ToLower();
 			if (testKey.StartsWith("testkey"))
 			{
 				int registrationId = Convert.ToInt32(testKey.Substring("testkey".Length));
@@ -126,7 +136,7 @@ namespace Test.Driver.Controllers
 					return Request.CreateResponse<Settings>(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());
 				}
 			}
-			else if (testKey.StartsWith("practice"))
+			else if (testKey.StartsWith("pract")) // as in Practice - practice test keys will be PRACT-XXXXX
 			{
 				Settings response = new Settings(LoginController.settingsTemplate);
 				response.configurationSettings.updateSettings.ping = false;

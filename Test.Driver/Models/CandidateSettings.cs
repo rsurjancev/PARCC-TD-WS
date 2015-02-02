@@ -6,7 +6,16 @@ using Newtonsoft.Json;
 
 namespace Test.Driver.Models
 {
-	public class NameSettings
+    public class StateSettings
+    {
+        [JsonProperty(PropertyName = "name")]
+        public string name { get; set; }
+
+        [JsonProperty(PropertyName = "abbreviation")]
+        public string abbreviation { get; set; }
+    }
+
+    public class NameSettings
 	{
 		[JsonProperty(PropertyName = "first")]
 		public string first { get; set; }
@@ -46,7 +55,10 @@ namespace Test.Driver.Models
 
 		[JsonProperty(PropertyName = "school")]
 		public SchoolSettings schoolSettings { get; set; }
-	}
+
+        [JsonProperty(PropertyName = "state")]
+        public StateSettings stateSettings { get; set; }
+    }
 }
 
 /*
@@ -63,6 +75,10 @@ namespace Test.Driver.Models
 			"name": "Stone Elementary",
 			"city": "Addison",
 			"district": "4"
-		}
+		},
+        "state": {
+            "name": "Illinois",
+            "abbreviation": "IL"
+        }
 	},
 */

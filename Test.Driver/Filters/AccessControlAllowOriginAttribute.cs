@@ -10,7 +10,9 @@ namespace Test.Driver.Filters
 	{
 		public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
 		{
-			actionExecutedContext.Response.Content.Headers.Add("Access-Control-Allow-Origin", "http://dev.parcc.com");
+			// actionExecutedContext.Response.Content.Headers.Add("Access-Control-Allow-Origin", "http://dev.parcc.com");
+			actionExecutedContext.Response.Content.Headers.Add("Access-Control-Allow-Origin", "*");
+			base.OnActionExecuted(actionExecutedContext);
 		}
 	}
 }
