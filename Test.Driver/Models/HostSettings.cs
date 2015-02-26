@@ -8,24 +8,80 @@ namespace Test.Driver.Models
 {
 	public class GetSettings
 	{
+        private string _value;
 		[JsonProperty(PropertyName = "base")]
-		public string baseUrl { get; set; }
+		public string baseUrl
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = String.Copy(value);
+            }
+        }
 	}
 
 	public class PostSettings
 	{
-		[JsonProperty(PropertyName = "state")]
-		public string state { get; set; }
+        private string _state;
+        private string _upload;
+        private string _pause;
+        private string _complete;
 
-		[JsonProperty(PropertyName = "upload")]
-		public string upload { get; set; }
+        [JsonProperty(PropertyName = "state")]
+		public string state
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = String.Copy(value);
+            }
+        }
 
-		[JsonProperty(PropertyName = "pause")]
-		public string pause { get; set; }
+        [JsonProperty(PropertyName = "upload")]
+		public string upload
+        {
+            get
+            {
+                return _upload;
+            }
+            set
+            {
+                _upload = String.Copy(value);
+            }
+        }
 
-		[JsonProperty(PropertyName = "complete")]
-		public string complete { get; set; }
-	}
+        [JsonProperty(PropertyName = "pause")]
+		public string pause
+        {
+            get
+            {
+                return _pause;
+            }
+            set
+            {
+                _pause = String.Copy(value);
+            }
+        }
+
+        [JsonProperty(PropertyName = "complete")]
+		public string complete
+        {
+            get
+            {
+                return _complete;
+            }
+            set
+            {
+                _complete = String.Copy(value);
+            }
+        }
+    }
 
 	public class HostSettings
 	{
